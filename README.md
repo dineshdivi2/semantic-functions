@@ -43,6 +43,24 @@ Examples:
 
 The model does **not** own execution. It proposes or ranks a decision inside a constrained interface; deterministic systems enforce schemas, policies, validators, and approval thresholds.
 
+## First concept: local/SLM reranking
+
+The first concrete case study is a **local or small-model reranker** for retrieval.
+
+```text
+BM25 / dense / hybrid retrieval
+             ↓
+       candidate passages
+             ↓
+  local or small-model reranker
+             ↓
+        final ranked list
+```
+
+This is a bounded semantic function: the model judges query–passage relevance, while the retrieval pipeline, candidate limit, validation, and fallback remain deterministic. The right claim is empirical: does it improve the final ranking over BM25, dense, hybrid, or fusion baselines within a defined latency and cost budget?
+
+Read the [reranking case study](docs/01-local-slm-reranking.md), [delegatability rubric](docs/02-delegatability-rubric.md), and [evaluation principles](docs/03-evaluation-principles.md).
+
 ## Decision boundary
 
 The useful question is not “can a model do this?” It is:
@@ -106,7 +124,8 @@ This makes the result auditable, testable, and usable by deterministic downstrea
 
 - [ ] Define a semantic-function taxonomy and delegatability rubric
 - [ ] Build a common evaluation schema
-- [ ] Add the first case study: intent routing with rules vs embeddings vs local SLM
+- [x] Define the first case study: local/SLM reranking over lexical, dense, and hybrid retrieval
+- [ ] Add the first experimental dataset and baselines
 - [ ] Measure quality, calibration, latency, cost, and fallback behavior
 - [ ] Publish decision records and failure cases, not just aggregate scores
 
